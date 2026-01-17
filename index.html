@@ -1,155 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sweet Memories 💙</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sweet Memories 💙</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Pacifico&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+/* ================= ROOT VARIABLES ================= */
+:root{
+  --bg:#eaf4ff;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --brand:#2563eb;
+  --card:#ffffff;
+  --glass:rgba(0,0,0,.45);
+  --radius:22px;
+  --shadow:0 20px 40px rgba(0,0,0,.15);
+  --transition:.4s ease;
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: url("https://images.unsplash.com/photo-1504457047772-27faf1c00561?auto=format&fit=crop&w=1600&q=80") center/cover fixed no-repeat;
-      color: #fff;
-    }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-    .overlay {
-      background: rgba(0,0,0,0.55);
-      min-height: 100vh;
-    }
+/* ================= BODY ================= */
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:url('https://images.unsplash.com/photo-1504457047772-27faf1c00561?auto=format&fit=crop&w=1600&q=80') center/cover fixed no-repeat;
+  color:#fff;
+}
 
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-    }
+/* ================= GLOBAL ================= */
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
 
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      color: #ffd1dc;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.7);
-      margin-bottom: 16px;
-    }
+/* ================= NAV ================= */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(234,244,255,.75);
+  border-bottom:1px solid rgba(0,0,0,.05);
+}
+.nav-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{
+  font-family:Pacifico;
+  font-size:34px;
+  color:var(--brand);
+}
+.menu{
+  display:flex;
+  gap:28px;
+  font-family:'Playfair Display';
+  font-size:18px;
+}
+.menu a{opacity:.6;transition:opacity var(--transition)}
+.menu a:hover,
+.menu a.active{opacity:1}
 
-    header p {
-      max-width: 800px;
-      margin: auto;
-      color: #fff0f5;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      line-height: 1.8;
-    }
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  position:relative;
+  padding:40px 20px;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.65));
+}
+.hero > *{position:relative;z-index:1}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-      gap: 18px;
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+.hero-grid{
+  max-width:1200px;
+  display:grid;
+  grid-template-columns:1fr 1.2fr 1fr;
+  gap:26px;
+  align-items:center;
+  margin-bottom:30px;
+}
+.hero img{
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  transition:transform var(--transition);
+}
+.hero img:hover{transform:scale(1.05)}
 
-    .gallery img {
-      width: 100%;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
+.hero h1{
+  font-family:'Playfair Display';
+  font-size:56px;
+  margin:20px 0 10px;
+  color:#bfdbfe;
+}
+.hero p{
+  max-width:850px;
+  margin:auto;
+  line-height:1.8;
+  color:#e5e7eb;
+}
+.cta{margin-top:10px;color:#e0f2fe}
 
-    .story {
-      max-width: 1100px;
-      margin: 60px auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
+/* ================= ANIMATIONS ================= */
+.fade,.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.9s ease;
+}
+.fade.show,.reveal.show{
+  opacity:1;
+  transform:none;
+}
 
-    .story img {
-      width: 100%;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
+/* ================= MASONRY ================= */
+.masonry{
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 20px;
+}
+.cols{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+.tile{
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.tile img{
+  transition:transform .6s ease;
+}
+.tile:hover img{transform:scale(1.1)}
 
-    .story h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: #ffd1dc;
-      margin-bottom: 12px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    }
+/* ================= STORIES ================= */
+.story{
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 20px;
+}
+.story-row{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:36px;
+  align-items:center;
+  margin-bottom:90px;
+}
+.story-row.reverse{
+  grid-template-columns:1fr 1.1fr;
+}
+.story h3{
+  font-family:'Playfair Display';
+  font-size:34px;
+  margin-bottom:10px;
+}
+.story p{
+  line-height:1.8;
+  color:#e5e7eb;
+}
 
-    .story p {
-      color: #fff0f5;
-      line-height: 1.8;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
+/* ================= CARDS ================= */
+.card{
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(6px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
 
-    footer {
-      text-align: center;
-      padding: 60px 20px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      color: #ffd1dc;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    }
+/* ================= FOOTER ================= */
+.footer{
+  padding:60px 20px;
+  text-align:center;
+  font-family:'Playfair Display';
+  font-size:28px;
+  color:#bfdbfe;
+}
 
-    @media(max-width:800px){
-      .story { grid-template-columns: 1fr; }
-    }
-  </style>
+/* ================= MUSIC BUTTON ================= */
+.music-btn{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  border:none;
+  border-radius:999px;
+  padding:14px 18px;
+  font-size:16px;
+  cursor:pointer;
+  background:#1e3a8a;
+  color:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  transition:transform .3s ease;
+}
+.music-btn:hover{transform:scale(1.1)}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr 1fr}
+  .story-row,
+  .story-row.reverse{grid-template-columns:1fr}
+  .brand{font-size:28px}
+}
+</style>
 </head>
+
 <body>
 
-<div class="overlay">
-
-  <header>
-    <h1>Happy Birthday 💫</h1>
-    <p>
-      This is not just a website.  
-      It’s a small piece of our story — the laughs, the chaos, the late-night talks,
-      and the moments that turned into memories.
-    </p>
-  </header>
-
-  <section class="gallery">
-    <img src="photo1.jpg">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-    <img src="photo4.jpg">
-    <img src="photo5.jpg">
-    <img src="photo6.jpg">
-  </section>
-
-  <section class="story">
-    <img src="photo7.jpg">
-    <div>
-      <h2>How We Met ✨</h2>
-      <p>
-        Remember that day? I didn’t know it then, but my life quietly changed.
-        You walked in, and somehow everything felt lighter.
-      </p>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Sweet Memories</div>
+    <div class="menu">
+      <a class="active" href="#home">Home</a>
+      <a href="#memories">Memories</a>
+      <a href="#moments">Moments</a>
     </div>
-  </section>
+  </div>
+</nav>
 
-  <section class="story">
-    <div>
-      <h2>Our First Trip 🚗</h2>
-      <p>
-        Just us, bad music, random food stops, and a thousand laughs.
-        That trip still lives in my head rent-free.
-      </p>
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-grid">
+    <img class="fade" src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=900&q=80" alt="memory">
+    <img class="fade" src="https://images.unsplash.com/photo-1520974735194-6c4b2f0c2d6d?auto=format&fit=crop&w=1200&q=80" alt="center memory">
+    <img class="fade" src="https://images.unsplash.com/photo-1520974735194-6c4b2f0c2d6d?auto=format&fit=crop&w=900&q=80" alt="memory">
+  </div>
+
+  <h1 class="fade">Happy Birthday!</h1>
+  <p class="fade">Today isn’t just your birthday — it’s a celebration of you...</p>
+  <p class="fade">Because you’re not just my best friend — you’re my chosen family.</p>
+  <div class="cta fade">Let’s take a trip down memory lane — just us 💫📸</div>
+</section>
+
+<!-- MASONRY -->
+<section id="moments" class="masonry">
+  <div class="cols">
+    <div class="tile fade"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"></div>
+    <div class="tile fade"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80"></div>
+    <div class="tile fade"><img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=800&q=80"></div>
+    <div class="tile fade"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"></div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="memories" class="story">
+  <div class="story-row">
+    <div class="card fade"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80"></div>
+    <div class="fade">
+      <h3>Our First Sleepover 💤</h3>
+      <p>I still remember how weirdly nervous we both were...</p>
     </div>
-    <img src="photo8.jpg">
-  </section>
+  </div>
+</section>
 
-  <footer>
-    Thank you for being my favorite person 💙
-  </footer>
+<div class="footer">Thank you for being you. I love you. 💙</div>
 
-</div>
+<!-- AUDIO -->
+<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/10/19/audio_6c68f0d4f4.mp3?filename=romantic-piano-121431.mp3" loop></audio>
+<button class="music-btn" id="musicBtn" aria-label="Toggle music">▶︎ Music</button>
+
+<!-- SCRIPT -->
+<script>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>e.isIntersecting && e.target.classList.add('show'));
+},{threshold:.2});
+
+document.querySelectorAll('.fade,.reveal').forEach(el=>observer.observe(el));
+
+const btn=document.getElementById('musicBtn');
+const audio=document.getElementById('bgm');
+
+btn.onclick=()=>{
+  if(audio.paused){
+    audio.play();
+    btn.textContent='❚❚ Music';
+  }else{
+    audio.pause();
+    btn.textContent='▶︎ Music';
+  }
+};
+</script>
+
+</body>
+</html>
+
 
 </body>
 </html>
